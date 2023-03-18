@@ -1,9 +1,19 @@
 <script lang="ts">
   import {onMount} from 'svelte';
-  import type {Heading, ScoutField} from './types';
+  import type {ScoutField} from './types';
+  import type {Heading} from './headingtype'
+  import { createEventDispatcher } from 'svelte';
+  
+  const dispatch = createEventDispatcher();
+  function handlenewrow(index) {        
+        dispatch('addnewrow', {
+          index:index
+        });  
+    }
 
   export let data: ScoutField[];
   export let headings: Heading[];
+
 
   // Support for drag and drop of table rows was heavily inspired by
   // https://htmldom.dev/drag-and-drop-table-row/
@@ -81,16 +91,16 @@
     if (code === 'Enter' || code === 'Escape') editProperty = '';
   }
 
-  function insertRowAfter(index: number): void {
-    const item: ScoutField = {
-      scoutName: '',
-      growerName: '',
-      fieldName: '',
-      acres: 0
-    };
-    data.splice(index + 1, 0, item);
-    data = data;
-  }
+  // function insertRowAfter(index: number): void {
+  //   const item: ScoutField = {
+  //     scoutName: '',
+  //     growerName: '',
+  //     fieldName: '',
+  //     acres: 0
+  //   };
+  //   data.splice(index + 1, 0, item);
+  //   data = data;
+  // }
 
   function isAbove(nodeA: Element, nodeB: Element): boolean {
     // Get the bounding rectangle of nodes.
@@ -274,7 +284,7 @@
                   <select
                     on:blur={e => saveChange(e, index, heading.property)}
                     on:change={e => saveChange(e, index, heading.property)}
-                    value={obj[heading.property]}>
+                    value={obj[heading.property]} on:change>
                     {#each heading.getOptions() as option}
                       <option value={option}>{option}</option>
                     {/each}
@@ -287,7 +297,7 @@
                   type={heading.type}
                   use:selectAll
                   on:change={e => saveChange(e, index, heading.property)}
-                  value={data[index][heading.property]}>
+                  value={data[index][heading.property]} on:change>
                   {/if}
               {:else}<span>{obj[heading.property]}</span>{/if}
             </td>
@@ -295,7 +305,7 @@
           <td class="actions">
             <button on:click={() => deleteRow(index)} title="delete">✖🗑</button>
             <button
-              on:click={() => insertRowAfter(index)}
+              on:click={() => handlenewrow(index)}
               title="insert after">➕</button>
           </td>
         </tr>

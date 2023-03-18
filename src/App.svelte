@@ -1,6 +1,8 @@
 <script lang="ts">
   import Table from './Table.svelte';
-  import type {Heading, ScoutField} from './types';
+  import type {ScoutField} from './types';
+  import {mydata} from './stores/scoutstore';
+  import type {Heading} from './headingtype';
 
   const getGrowers = () => [
     'G1', 'G2', 'G3', 'G4', 'G5'
@@ -17,18 +19,26 @@
     {title: 'Acres', property: 'acres', type: 'number', width: 100}
   ];
 
-  const data: ScoutField[] = [
-    {scoutName: 'S1', growerName: 'G1', fieldName: 'F1', acres: 100},
-    {scoutName: 'S1', growerName: 'G2', fieldName: 'F2', acres: 200},
-    {scoutName: 'S2', growerName: 'G3', fieldName: 'F3', acres: 300},
-    {scoutName: 'S2', growerName: 'G4', fieldName: 'F4', acres: 400}
-  ];
+  function insertRowAfter(event) {
+    let index=event.detail.index;
+    const item: ScoutField = {
+      scoutName: '',
+      growerName: '',
+      fieldName: '',
+      acres: 0
+    };
+    $mydata.splice(index + 1, 0, item);
+    $mydata = $mydata;
+  }
+
 </script>
 
 <main>
   <h1>Next 7 Days</h1>
-  <Table {headings} {data} />
+  <Table {headings} bind:data={$mydata} on:addnewrow={insertRowAfter} />
 </main>
+Debug
+<p>{JSON.stringify($mydata)}</p>
 
 <style>
 </style>
