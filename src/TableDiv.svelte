@@ -3,7 +3,7 @@
   import type {Heading} from './headingtype'
   import { createEventDispatcher } from 'svelte';
   import {flip} from 'svelte/animate';
-  let hovering = false;
+  let hovering = -1;
   
   const dispatch = createEventDispatcher();
   function handlenewrow(index) {        
