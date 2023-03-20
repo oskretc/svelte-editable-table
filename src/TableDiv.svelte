@@ -22,7 +22,6 @@
 
   let editIndex: number;
   let editProperty: string;
-  let list: HTMLDivElement;  
   let tablediv: HTMLDivElement;
 
 
@@ -98,7 +97,7 @@
       newTracklist.splice(target, 0, newTracklist[start]);
       newTracklist.splice(start + 1, 1);
     }
-    list = newTracklist
+    data = newTracklist
     hovering = null
   }  
   const dragstart = (event, i) => {
@@ -221,14 +220,6 @@
     margin-bottom: 0;
   }
 
-  section {
-    --row-height: 52px;
-  }
-
-  section :global(.clone-table),
-  section :global(table) {
-    border-collapse: collapse;
-  }
 
   section :global(.draggable) {
     cursor: ns-resize;
@@ -248,22 +239,16 @@
     height: calc(var(--row-height) - 2 * var(--border-width) - var(--fudge));
   }
 
-  section :global(td),
-  section :global(th) {
-    border: 1px solid lightgray;
-    padding: 0.5rem;
-  }
-  section :global(.clone-list td) {
+
+  section :global(.clone-list) {
     border-top-width: 0;
   }
 
-  section :global(.dragging td) {
+  section :global(.dragging) {
     border-top-width: 1px;
   }
 
-  section :global(tr) {
-    height: var(--row-height);
-  }
+
  
 
 
