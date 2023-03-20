@@ -274,16 +274,16 @@
     console.log(event);
     event.dataTransfer.dropEffect = 'move'; 
     const start = parseInt(event.dataTransfer.getData("text/plain"));
-    const newTracklist = list
+    const newTracklist = data
 
     if (start < target) {
       console.log("element before zero i think");
-      // newTracklist.splice(target + 1, 0, newTracklist[start]);
-      // newTracklist.splice(start, 1);
+      newTracklist.splice(target + 1, 0, newTracklist[start]);
+      newTracklist.splice(start, 1);
     } else {
       console.log('somewher in the middle');
-      // newTracklist.splice(target, 0, newTracklist[start]);
-      // newTracklist.splice(start + 1, 1);
+      newTracklist.splice(target, 0, newTracklist[start]);
+      newTracklist.splice(start + 1, 1);
     }
     list = newTracklist
     hovering = null
@@ -379,15 +379,10 @@
   }
   .td{
     display: table-cell;
-    border: 1px solid purple;
+    border: 1px solid lightgray;
     padding: 0.5rem;   
 
-  }
-
-  .tr-item {
-    display: block;
-    padding: 0.5em 1em;
-  }  
+  } 
   .tr:not(:last-child) {
     border-bottom: 1px solid #dbdbdb;
   }
@@ -445,11 +440,6 @@
     border: 1px solid lightgray;
     padding: 0.5rem;
   }
-  .theader {
-    border: 1px solid lightgray;
-    padding: 0.5rem;
-  }  
-
   section :global(.clone-list td) {
     border-top-width: 0;
   }
