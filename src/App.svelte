@@ -3,6 +3,7 @@
   import type {ScoutField} from './types';
   import {mydata} from './stores/scoutstore';
   import type {Heading} from './headingtype';
+    import TableDiv from './TableDiv.svelte';
 
   const getGrowers = () => [
     'G1', 'G2', 'G3', 'G4', 'G5'
@@ -36,6 +37,8 @@
 <main>
   <h1>Next 7 Days</h1>
   <Table {headings} bind:data={$mydata} on:addnewrow={insertRowAfter} />
+  <hr>
+  <TableDiv {headings} bind:data={$mydata} on:addnewrow={insertRowAfter} />
 </main>
 Debug
 <p>{JSON.stringify($mydata)}</p>
