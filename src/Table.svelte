@@ -1,7 +1,6 @@
 <script lang="ts">
   import {onMount} from 'svelte';
-  import type {ScoutField} from './types';
-  import type {Heading} from './headingtype'
+  import type {Heading} from './types'
   import { createEventDispatcher } from 'svelte';
   
   const dispatch = createEventDispatcher();
@@ -9,9 +8,10 @@
         dispatch('addnewrow', {
           index:index
         });  
-    }
+  }
 
-  export let data: ScoutField[];
+
+  export let data: any;
   export let headings: Heading[];
 
 
@@ -72,6 +72,10 @@
   function deleteRow(index: number): void {
     data.splice(index, 1);
     data = data;
+    dispatch('deleterow', {
+          index:index
+      });      
+    
   }
 
   function editCell(index: number, property: string): void {
